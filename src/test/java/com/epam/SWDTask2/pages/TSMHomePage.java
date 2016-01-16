@@ -15,8 +15,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class TSMHomePage {
     private WebDriver driver;
 
-    public static final String URL = "https://www.travelsupermarket.com/";
-
     @FindBy(xpath = "//button[contains(., 'Hotels')]")
     private WebElement hotelsTab;
 
@@ -53,12 +51,6 @@ public class TSMHomePage {
     public TSMHomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
-    }
-
-    public void openPage() {
-        this.driver.get(URL);
-        WebDriverWait wait = new WebDriverWait(driver, 3000);
-        //      wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//auto-complete[@id='hotelsDestinationField']/div/div")));
     }
 
     public void waitResultsUploadedHotelsDestination() {
