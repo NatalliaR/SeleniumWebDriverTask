@@ -2,8 +2,11 @@ package com.epam.SWDTask2.pages;
 
 import com.epam.SWDTask2.tests.TSMTask2Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,8 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * Created by Natallia_Ramanchyk on 1/15/2016.
  */
-public class TSMHomePage {
-    private WebDriver driver;
+public class TSMHomePage extends AbstractPage {
 
     @FindBy(xpath = "//button[contains(., 'Hotels')]")
     private WebElement hotelsTab;
@@ -49,29 +51,36 @@ public class TSMHomePage {
     private WebElement searchButton;
 
     public TSMHomePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(this.driver, this);
+        super(driver);
     }
 
-    public void waitResultsUploadedHotelsDestination() {
+ /*   public void waitResultsUploadedHotelsDestination() {
         WebDriverWait wait = new WebDriverWait(driver, 5000);
         wait.until(ExpectedConditions.visibilityOf(uploadedHotelsDestination));
+    }*/
+
+    public TSMHomePage goToHotelsTab() {
+        builder.click(hotelsTab).build().perform();
+        return this;
     }
 
-    public TSMHomePage hotelSearch(String dest, String checkIn, String checkOut, String guests) {
-        hotelsTab.click();
-        hotelsDestination.clear();
-        hotelsDestination.sendKeys(dest);
-        waitResultsUploadedHotelsDestination();
-        destination.click();
+    public TSMHomePage enterHotelDestination(String dest) {
+        builder.sendKeys(hotelsDestination, dest).click(destination).build().perform();
+        return this;
+    }
+
+    public TSMHomePage fillingHotelSearch(String checkIn, String checkOut, String guests) throws InterruptedException {
         checkInCalendar.sendKeys(checkIn);
         checkInDate.click();
         checkOutCalendar.sendKeys(checkOut);
         checkOutDate.click();
         guestsDropdown.sendKeys(guests);
         guestsOptions.click();
-        searchButton.click();
         return new TSMHomePage(this.driver);
     }
 
+    public TSMHomePage goToHotelSearch() {
+        builder.click(searchButton).build().perform();
+        return this;
+    }
 }

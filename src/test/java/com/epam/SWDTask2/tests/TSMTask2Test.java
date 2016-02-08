@@ -1,46 +1,42 @@
 package com.epam.SWDTask2.tests;
 
+import com.epam.SWDTask2.utils.ScreenShotUtils;
 import com.epam.SWDTask2.pages.TSMHomePage;
 import com.epam.SWDTask2.pages.TSMHotelPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import static java.util.concurrent.TimeUnit.SECONDS;
+import org.openqa.selenium.By;
+import org.testng.annotations.*;
+
 import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Natallia_Ramanchyk on 1/15/2016.
  */
-public class TSMTask2Test {
-    private WebDriver driver;
+public class TSMTask2Test extends BasicTest {
 
-    public static final String URL = "https://www.travelsupermarket.com/";
+
     public static final String dest = "dub";
     public static final String destValue = "528cbf04e4b0ec1df5083fbc";
-    public static final String checkIn = "20 Jan 16";
-    public static final String checkOut = "27 Jan 16";
+    public static final String checkIn = "10 Feb 16";
+    public static final String checkOut = "17 Feb 16";
     public static final String guests = "2 adults in 1 room";
     public static final String destTest = "Dubai";
-    public static final String checkInTest = "20th Jan";
-    public static final String checkOutTest = "27th Jan";
+    public static final String checkInTest = "10th Feb";
+    public static final String checkOutTest = "17th Feb";
 
     @Test
-    public void prepare() {
-        WebDriver driver = new FirefoxDriver();
-        driver.manage().window().maximize();
-        driver.get(URL);
-        driver.manage().timeouts().implicitlyWait(10, SECONDS);
+    public void testHotelSearch() throws InterruptedException {
         TSMHomePage tsmHomePage = new TSMHomePage(driver);
-        tsmHomePage.hotelSearch(dest, checkIn, checkOut, guests);
+        tsmHomePage.goToHotelsTab();
+        tsmHomePage.enterHotelDestination(dest);
+        tsmHomePage.fillingHotelSearch(checkIn, checkOut, guests);
+        tsmHomePage.goToHotelSearch();
         TSMHotelPage tsmHotelPage = new TSMHotelPage(driver);
         tsmHotelPage.waitResultsUploaded();
-        assertEquals(tsmHotelPage.verifyHotelsTitle1(), destTest, "Invalid result");
-        assertEquals(tsmHotelPage.verifyHotelsTitle2(), checkInTest + " to " + checkOutTest + " - Change search", "Invalid result");
-        driver.close();
-        driver.quit();
+        ScreenShotUtils.takeScreenShotWithHighlightElement(tsmHotelPage.getTitleWhereHotels(),driver);
+        assertEquals(tsmHotelPage.textWhereHotelsFromTitle(), destTest, "Invalid result");
+        ScreenShotUtils.takeScreenShotWithHighlightElement(tsmHotelPage.getTitleDurationFromTo(),driver);
+        assertEquals(tsmHotelPage.textDurationFromToFromTitle(), checkInTest + " to " + checkOutTest + " - Change search", "Invalid result");
     }
+
 }
 
