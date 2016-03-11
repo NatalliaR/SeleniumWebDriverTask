@@ -1,9 +1,8 @@
-package com.epam.SWDTask2.tests;
+package epam.com.tsm.SWDTask2.tests;
 
-import com.epam.SWDTask2.utils.ScreenShotUtils;
-import com.epam.SWDTask2.pages.TSMHomePage;
-import com.epam.SWDTask2.pages.TSMHotelPage;
-import org.openqa.selenium.By;
+import epam.com.tsm.utils.ScreenShotUtils;
+import epam.com.tsm.pages.TSMHomePage;
+import epam.com.tsm.pages.TSMHotelPage;
 import org.testng.annotations.*;
 
 import static org.testng.Assert.assertEquals;
@@ -15,10 +14,10 @@ public class TSMTask2Test extends BasicTest {
 
 
     public static final String dest = "dub";
-    public static final String destValue = "528cbf04e4b0ec1df5083fbc";
-    public static final String checkIn = "10 Feb 16";
-    public static final String checkOut = "17 Feb 16";
-    public static final String guests = "2 adults in 1 room";
+    public static final String abbrDest = "528cbf04e4b0ec1df5083fbc";
+    public static final String checkIn = "10 Aug 16";
+    public static final String checkOut = "17 Aug 16";
+    public static final String guests = "2";
     public static final String destTest = "Dubai";
     public static final String checkInTest = "10th Feb";
     public static final String checkOutTest = "17th Feb";
@@ -27,7 +26,7 @@ public class TSMTask2Test extends BasicTest {
     public void testHotelSearch() throws InterruptedException {
         TSMHomePage tsmHomePage = new TSMHomePage(driver);
         tsmHomePage.goToHotelsTab();
-        tsmHomePage.enterHotelDestination(dest);
+        tsmHomePage.editHotelDestination(dest,abbrDest);
         tsmHomePage.fillingHotelSearch(checkIn, checkOut, guests);
         tsmHomePage.goToHotelSearch();
         TSMHotelPage tsmHotelPage = new TSMHotelPage(driver);

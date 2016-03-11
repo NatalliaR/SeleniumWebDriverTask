@@ -1,4 +1,4 @@
-package com.epam.SWDTask2.utils;
+package epam.com.tsm.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;

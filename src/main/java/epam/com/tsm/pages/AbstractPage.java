@@ -1,4 +1,4 @@
-package com.epam.SWDTask2.pages;
+package epam.com.tsm.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;

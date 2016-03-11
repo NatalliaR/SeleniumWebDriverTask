@@ -1,12 +1,10 @@
-package com.epam.SWDTask2.pages;
+package epam.com.tsm.pages;
 
-import org.openqa.selenium.JavascriptExecutor;
+import epam.com.tsm.controls.Wait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static java.lang.Thread.sleep;
 
@@ -29,22 +27,11 @@ public class TSMHotelPage extends AbstractPage {
         PageFactory.initElements(this.driver, this);
     }
 
-    /*   public TSMHotelPage highlightElement(WebDriver driver, WebElement element) throws InterruptedException {
-           String bg = element.getCssValue("backgroundColor");
-           JavascriptExecutor js = ((JavascriptExecutor) driver);
-           js.executeScript("arguments[0].style.backgroundColor = '" + "yellow" + "'", element);
-           sleep(2000);
-           takeScreenshot(driver);
-           return this;
-           js.executeScript("arguments[0].style.backgroundColor = '" + bg + "'", element);
-       }*/ //*[contains(@class,'значение')]
-
-
-
-    public void waitResultsUploaded() {
-        WebDriverWait wait = new WebDriverWait(driver, 3000);
-        wait.until(ExpectedConditions.visibilityOf(uploadedHotelsResults));
+    public void waitResultsUploaded(){
+        Wait waitResults = new Wait(driver, uploadedHotelsResults);
+        waitResults.waitElementIsPresent();
     }
+
     public WebElement getTitleWhereHotels() {
         return whereHotelsTitle;
     }
